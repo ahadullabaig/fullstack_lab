@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdfdfd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.rating-container {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.stars {
+    font-size: 3rem;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.star {
+    color: #ccc; /* Default grey color */
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+}
+
+/* Color when hovered or selected */
+.star.hovered, .star.selected {
+    color: #f1c40f; /* Gold color */
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+#rating-message {
+    color: #555;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#reset-btn {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#reset-btn:hover {
+    background: #f8f8f8;
+}
