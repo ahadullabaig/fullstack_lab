@@ -1,0 +1,22 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    text-align: center;
+}
+
+#animatedText {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    display: inline-block;
+    /* Smoothly transition any style changes triggered by JavaScript */
+    transition: transform 1s ease-in-out, color 1s ease-in-out;
+}
+
