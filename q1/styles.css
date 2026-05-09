@@ -1,0 +1,73 @@
+/* General Reset */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Card Styling */
+.profile-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 320px;
+    text-align: center;
+    padding: 30px;
+}
+
+h2 {
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.bio {
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 20px;
+}
+
+/* Stats Section */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.stat-item {
+    font-size: 0.85em;
+    color: #888;
+}
+
+.stat-item b {
+    display: block;
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* Button Styling */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* State for when button is clicked */
+button.following {
+    background-color: #28a745;
+}
