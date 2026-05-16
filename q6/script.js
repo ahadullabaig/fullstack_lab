@@ -3,65 +3,40 @@ const strengthBar = document.getElementById('strengthBar');
 const feedbackText = document.querySelector('#feedbackText span');
 const toggleText = document.getElementById('toggleText');
 
-// Toggle Password Visibility
+const checks = [
+    { id: 'length',  test: v => v.length >= 8 },
+    { id: 'upper',   test: v => /[A-Z]/.test(v) },
+    { id: 'number',  test: v => /[0-9]/.test(v) },
+    { id: 'special', test: v => /[^A-Za-z0-9]/.test(v) }
+];
+
+const states = [
+    { width: '0%',   color: 'transparent', text: 'None' },
+    { width: '25%',  color: '#e94560',     text: 'Weak' },
+    { width: '50%',  color: '#f39c12',     text: 'Medium' },
+    { width: '75%',  color: '#3498db',     text: 'Strong' },
+    { width: '100%', color: '#27ae60',     text: 'Very Strong' }
+];
+
 toggleText.addEventListener('click', () => {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    toggleText.innerText = type === 'password' ? 'Show' : 'Hide';
+    const isPassword = passwordInput.type === 'password';
+    passwordInput.type = isPassword ? 'text' : 'password';
+    toggleText.innerText = isPassword ? 'Hide' : 'Show';
 });
 
-// Check Strength Logic
 passwordInput.addEventListener('input', () => {
     const val = passwordInput.value;
     let score = 0;
 
-    // 1. Length Check
-    if (val.length >= 8) {
-        score++;
-        document.getElementById('length').classList.add('valid');
-    } else {
-        document.getElementById('length').classList.remove('valid');
-    }
+    checks.forEach(c => {
+        const valid = c.test(val);
+        document.getElementById(c.id).classList.toggle('valid', valid);
+        if (valid) score++;
+    });
 
-    // 2. Uppercase Check
-    if (/[A-Z]/.test(val)) {
-        score++;
-        document.getElementById('upper').classList.add('valid');
-    } else {
-        document.getElementById('upper').classList.remove('valid');
-    }
-
-    // 3. Number Check
-    if (/[0-9]/.test(val)) {
-        score++;
-        document.getElementById('number').classList.add('valid');
-    } else {
-        document.getElementById('number').classList.remove('valid');
-    }
-
-    // 4. Special Character Check
-    if (/[^A-Za-z0-9]/.test(val)) {
-        score++;
-        document.getElementById('special').classList.add('valid');
-    } else {
-        document.getElementById('special').classList.remove('valid');
-    }
-
-    // Update UI based on score
-    updateMeter(score);
+    const s = states[score];
+    strengthBar.style.width = s.width;
+    strengthBar.style.backgroundColor = s.color;
+    feedbackText.innerText = s.text;
+    feedbackText.style.color = s.color;
 });
-
-function updateMeter(score) {
-    const states = [
-        { width: '0%', color: 'transparent', text: 'None' },
-        { width: '25%', color: '#e94560', text: 'Weak' },
-        { width: '50%', color: '#f39c12', text: 'Medium' },
-        { width: '75%', color: '#3498db', text: 'Strong' },
-        { width: '100%', color: '#27ae60', text: 'Very Strong' }
-    ];
-
-    strengthBar.style.width = states[score].width;
-    strengthBar.style.backgroundColor = states[score].color;
-    feedbackText.innerText = states[score].text;
-    feedbackText.style.color = states[score].color;
-}
