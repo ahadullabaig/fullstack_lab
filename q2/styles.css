@@ -9,24 +9,21 @@ body {
 }
 
 .calculator {
-    background: #fff;
+    background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 320px;
 }
 
 #display {
     width: 100%;
-    height: 60px;
     font-size: 2em;
     text-align: right;
     margin-bottom: 20px;
     padding: 10px;
     box-sizing: border-box;
     border: none;
-    background: #ecf0f1;
-    border-radius: 5px;
+    background: whitesmoke;
 }
 
 .buttons {
@@ -38,10 +35,9 @@ body {
 .btn {
     padding: 20px;
     font-size: 1.2em;
-    border: 1px solid #ddd;
+    border: 1px solid;
     border-radius: 5px;
     cursor: pointer;
-    background: #fff;
 }
 
 .operator { background: #f39c12; color: white; }
