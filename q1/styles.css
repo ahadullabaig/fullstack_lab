@@ -1,40 +1,73 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: lightgray;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
+    padding: 20px;
 }
 
-.profile-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    width: 320px;
-    padding: 30px;
+#main-container {
+    width: 700px;
+    background-color: white;
+    margin: 0 auto;
+    border: 3px solid black;
+    padding: 15px;
+    box-shadow: 5px 5px 10px #888888;
+}
+
+.header {
     text-align: center;
-}
-
-.bio {
-    color: #666;
+    background-color: navy;
+    color: white;
+    padding: 10px;
     margin-bottom: 20px;
 }
 
-.stats {
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #eee;
-    padding: 20px 0;
+h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-.stat-item b {
-    display: block;
+.profile-picture {
+    float: left;
+    width: 150px;
+    height: 150px;
+    border: 2px solid gray;
+    margin-right: 20px;
+    margin-top: 25px;
+}
+
+.info-section {
+    float: left;
+    width: 490px;
+}
+
+.clear {
+    clear: both;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 8px;
+    width: 150px;
+}
+
+td {
+    padding: 8px;
 }
 
 button {
-    background: #007bff;
+    background: navy;
     color: white;
     border: none;
     padding: 12px 30px;
@@ -43,5 +76,12 @@ button {
 }
 
 button.following {
-    background: #28a745;
+    background: green;
+}
+
+.section-title {
+    border-bottom: 2px solid navy;
+    color: navy;
+    margin-top: 20px;
+    padding-bottom: 5px;
 }

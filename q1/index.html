@@ -1,23 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Profile Page</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="profile-card">
-        <h2>Jane Doe</h2>
-        <p class="bio">Full Stack Developer | Coffee Enthusiast | Explorer of Digital Realms.</p>
 
-        <div class="stats">
-            <div class="stat-item"><b>1.2k</b> Followers</div>
-            <div class="stat-item"><b>450</b> Following</div>
-            <div class="stat-item"><b>85</b> Projects</div>
+<body>
+
+<div id="main-container">
+    <div class="header">
+        <h1>CS-302 Web Technologies Lab</h1>
+        <p>User Profile Page</p>
+    </div>
+
+    <div>
+        <img alt="Profile Picture" class="profile-picture">
+        
+        <div class="info-section">
+            <h2>Student Details</h2>
+            
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <th>Registration No.</th>
+                    <td>123456789</td>
+                </tr>
+                <tr>
+                    <th>Course</th>
+                    <td>B.Tech Computer Science</td>
+                </tr>
+                <tr>
+                    <th>Semester</th>
+                    <td>6th Semester</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>johndoe@student.edu</td>
+                </tr>
+            </table>
         </div>
 
         <button id="followBtn">Follow</button>
+
+        <div class="clear"></div>
     </div>
 
-    <script src="script.js"></script>
+    <h3 class="section-title">My Hobbies</h3>
+    <ul>
+        <li>Programming in C++ and Java</li>
+        <li>Playing Cricket</li>
+        <li>Listening to Music</li>
+        <li>Browsing the Internet</li>
+    </ul>
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
