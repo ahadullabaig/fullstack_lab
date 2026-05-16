@@ -1,58 +1,44 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #f0f2f5;
-    margin: 0;
-    padding: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .container {
-    width: 90%;
-    max-width: 1000px;
     background: white;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     text-align: center;
 }
 
-h1 { color: #2c3e50; margin-bottom: 5px; }
-#current-day { color: #7f8c8d; margin-bottom: 25px; font-weight: bold; }
+#current-day {
+    color: #666;
+    margin-bottom: 20px;
+}
 
 table {
-    width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin: 0 auto;
 }
 
 th, td {
-    border: 1px solid #dfe6e9;
-    padding: 15px;
+    border: 1px solid #ddd;
+    padding: 12px 20px;
     text-align: center;
 }
 
 th {
-    background-color: #34495e;
+    background: #34495e;
     color: white;
-    text-transform: uppercase;
-    font-size: 0.9em;
 }
 
-.time { background-color: #f9f9f9; font-weight: bold; width: 150px; }
-
-/* Subject Colors */
-.math { background-color: #d1e7dd; color: #0f5132; }
-.physics { background-color: #cfe2ff; color: #084298; }
-.cs { background-color: #f8d7da; color: #842029; }
-.english { background-color: #fff3cd; color: #664d03; }
-
-.break, .lunch {
-    background-color: #e2e3e5;
-    font-style: italic;
-    color: #6c757d;
-    font-weight: bold;
-}
-
-/* Hover effect */
-tr:hover { background-color: #f1f2f6; transition: 0.3s; }
+.time    { background: #f9f9f9; font-weight: bold; }
+.math    { background: #d1e7dd; }
+.physics { background: #cfe2ff; }
+.cs      { background: #f8d7da; }
+.english { background: #fff3cd; }
