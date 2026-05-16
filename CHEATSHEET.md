@@ -57,19 +57,39 @@ x.addEventListener('event', () => {
 
 ---
 
-## q1 — Follow Button
+## q1 — User Profile (Follow Button)
 
-**Unique HTML body:**
+**Unique HTML body** (header + flex row with profile pic next to a details table + hobbies list):
 ```html
-<div class="profile-card">
-    <h2>Jane Doe</h2>
-    <p class="bio">Full Stack Developer.</p>
-    <div class="stats">
-        <div class="stat-item"><b>1.2k</b> Followers</div>
-        <div class="stat-item"><b>450</b> Following</div>
-        <div class="stat-item"><b>85</b> Projects</div>
+<div id="main-container">
+    <div class="header">
+        <h1>CS-302 Web Technologies Lab</h1>
+        <p>User Profile Page</p>
     </div>
-    <button id="followBtn">Follow</button>
+
+    <div class="profile-section">
+        <img alt="Profile Picture" class="profile-picture">
+
+        <div class="info-section">
+            <h2>Student Details</h2>
+            <table>
+                <tr><th>Name</th><td>John Doe</td></tr>
+                <tr><th>Registration No.</th><td>123456789</td></tr>
+                <tr><th>Course</th><td>B.Tech Computer Science</td></tr>
+                <tr><th>Semester</th><td>6th Semester</td></tr>
+                <tr><th>Email</th><td>johndoe@student.edu</td></tr>
+            </table>
+            <button id="followBtn">Follow</button>
+        </div>
+    </div>
+
+    <h3 class="section-title">My Hobbies</h3>
+    <ul>
+        <li>Programming in C++ and Java</li>
+        <li>Playing Cricket</li>
+        <li>Listening to Music</li>
+        <li>Browsing the Internet</li>
+    </ul>
 </div>
 ```
 
@@ -88,17 +108,32 @@ followBtn.addEventListener('click', () => {
 });
 ```
 
-**Unique CSS bits** (on top of shared shells):
+**Unique CSS bits** (on top of shared shells — flex row inside the card):
 ```css
-.profile-card { width: 320px; text-align: center; }
-.bio { color: #666; margin-bottom: 20px; }
-.stats { display: flex; justify-content: space-between; border-top: 1px solid #eee; padding: 20px 0; }
-.stat-item b { display: block; }
-button { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; }
-button.following { background: #28a745; }
+#main-container { background: white; padding: 40px; border-radius: 12px;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 700px; }
+
+.header { text-align: center; margin-bottom: 30px; }
+
+.profile-section { display: flex; gap: 30px; margin-bottom: 30px; }
+.profile-picture { width: 150px; height: 150px; border-radius: 8px; background: #ecf0f1; }
+.info-section    { flex: 1; }
+
+table  { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+th     { background: #f9f9f9; width: 150px; }
+
+button { margin-top: 15px; padding: 10px 25px; background: #007bff;
+         color: white; border: none; border-radius: 5px; cursor: pointer; }
+button.following { background: #27ae60; }
+
+.section-title { color: #34495e; border-bottom: 2px solid #007bff; padding-bottom: 5px; }
+ul { line-height: 1.8; }
 ```
 
-**Trick:** toggle text + toggle class. That's it.
+**2 things to remember:**
+1. Toggle text + toggle class on the button — that's the whole JS trick.
+2. `.profile-section` is `display: flex` with `gap: 30px`, and `.info-section` uses `flex: 1` to fill the rest.
 
 ---
 
