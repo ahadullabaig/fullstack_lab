@@ -1,11 +1,11 @@
-const followBtn = document.getElementById('followBtn');
+const follow = document.getElementById('follow');
 
-followBtn.addEventListener('click', () => {
-    if (followBtn.innerText === 'Follow') {
-        followBtn.innerText = 'Following';
-        followBtn.classList.add('following');
+follow.addEventListener('click', () => {
+    if (follow.innerText === 'Follow') {
+        follow.innerText = 'Following';
+        follow.classList.add('following');
     } else {
-        followBtn.innerText = 'Follow';
-        followBtn.classList.remove('following');
+        follow.innerText = 'Follow';
+        follow.classList.remove('following');
     }
 });

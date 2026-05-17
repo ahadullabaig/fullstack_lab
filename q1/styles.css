@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-#main-container {
+.container {
     background: white;
     padding: 40px;
     border-radius: 12px;
@@ -18,29 +18,29 @@ body {
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
-.profile-section {
+.profile {
     display: flex;
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
-.profile-picture {
+.pic {
     width: 150px;
     height: 150px;
     border-radius: 8px;
-    background: #ecf0f1;
+    background: whitesmoke;
+    margin-top: 25px;
 }
 
-.info-section {
+.info {
     flex: 1;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
 }
 
 th, td {
@@ -51,13 +51,12 @@ th, td {
 
 th {
     background: #f9f9f9;
-    width: 150px;
 }
 
 button {
     margin-top: 15px;
     padding: 10px 25px;
-    background: #007bff;
+    background: blue;
     color: white;
     border: none;
     border-radius: 5px;
@@ -65,15 +64,5 @@ button {
 }
 
 button.following {
-    background: #27ae60;
-}
-
-.section-title {
-    color: #34495e;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
-}
-
-ul {
-    line-height: 1.8;
+    background: lightgreen;
 }
