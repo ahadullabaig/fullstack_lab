@@ -41,11 +41,6 @@ select {
     box-sizing: border-box;
 }
 
-.radio-group {
-    display: flex;
-    gap: 15px;
-}
-
 button {
     width: 100%;
     padding: 12px;
