@@ -9,17 +9,15 @@
         <h2>Security Check</h2>
         <p>Enter a password to test its strength.</p>
         
-        <div class="input-wrapper">
-            <input type="password" id="password" placeholder="Type your password...">
-            <span id="toggleText">Show</span>
+        <div class="input">
+            <input type="text" id="password" placeholder="Type your password...">
         </div>
 
-        <!-- Strength Meter -->
-        <div class="meter-container">
-            <div id="strengthBar"></div>
+        <div class="meter">
+            <div id="bar"></div>
         </div>
         
-        <p id="feedbackText">Strength: <span>None</span></p>
+        <p id="feedback">Strength: <span>None</span></p>
 
         <ul class="requirements">
             <li id="length">At least 8 characters</li>

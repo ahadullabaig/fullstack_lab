@@ -1,7 +1,6 @@
-const passwordInput = document.getElementById('password');
-const strengthBar = document.getElementById('strengthBar');
-const feedbackText = document.querySelector('#feedbackText span');
-const toggleText = document.getElementById('toggleText');
+const password = document.getElementById('password');
+const bar = document.getElementById('bar');
+const feedback = document.querySelector('#feedback span');
 
 const checks = [
     { id: 'length',  test: v => v.length >= 8 },
@@ -18,14 +17,8 @@ const states = [
     { width: '100%', color: '#27ae60',     text: 'Very Strong' }
 ];
 
-toggleText.addEventListener('click', () => {
-    const isPassword = passwordInput.type === 'password';
-    passwordInput.type = isPassword ? 'text' : 'password';
-    toggleText.innerText = isPassword ? 'Hide' : 'Show';
-});
-
-passwordInput.addEventListener('input', () => {
-    const val = passwordInput.value;
+password.addEventListener('input', () => {
+    const val = password.value;
     let score = 0;
 
     checks.forEach(c => {
@@ -35,8 +28,8 @@ passwordInput.addEventListener('input', () => {
     });
 
     const s = states[score];
-    strengthBar.style.width = s.width;
-    strengthBar.style.backgroundColor = s.color;
-    feedbackText.innerText = s.text;
-    feedbackText.style.color = s.color;
+    bar.style.width = s.width;
+    bar.style.backgroundColor = s.color;
+    feedback.innerText = s.text;
+    feedback.style.color = s.color;
 });

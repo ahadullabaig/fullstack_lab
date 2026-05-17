@@ -16,7 +16,7 @@ body {
     width: 350px;
 }
 
-.input-wrapper {
+.input {
     position: relative;
     margin-bottom: 15px;
 }
@@ -29,17 +29,7 @@ input {
     box-sizing: border-box;
 }
 
-#toggleText {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.8rem;
-    cursor: pointer;
-    color: #007bff;
-}
-
-.meter-container {
+.meter {
     height: 8px;
     background: #eee;
     border-radius: 4px;
@@ -47,7 +37,7 @@ input {
     margin-bottom: 10px;
 }
 
-#strengthBar {
+#bar {
     height: 100%;
     width: 0%;
     transition: width 0.4s, background-color 0.4s;
@@ -62,8 +52,4 @@ input {
 
 .requirements li.valid {
     color: #27ae60;
-}
-
-.requirements li.valid::before {
-    content: "✓ ";
 }
