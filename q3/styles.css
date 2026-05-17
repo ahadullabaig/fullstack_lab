@@ -16,29 +16,19 @@ body {
     text-align: center;
 }
 
-#current-day {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid white;
     padding: 12px 20px;
     text-align: center;
 }
 
 th {
-    background: #34495e;
+    background: navy;
     color: white;
 }
 
-.time    { background: #f9f9f9; font-weight: bold; }
-.math    { background: #d1e7dd; }
-.physics { background: #cfe2ff; }
-.cs      { background: #f8d7da; }
-.english { background: #fff3cd; }
+.time    { background: lightgray; font-weight: bold; }
+.math    { background: lightyellow; }
+.physics { background: lightblue; }
+.cs      { background: lightgreen; }
+.english { background: pink; }
