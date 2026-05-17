@@ -557,3 +557,309 @@ document.getElementById('reset-btn').onclick = () => {
 | `data-value="..."` | any element | read via `.dataset.value` (vanilla) or `.data('value')` (jQuery) |
 | `readonly` | input | display-only |
 | `placeholder` | input | grey hint text |
+
+---
+
+# React Questions (Q8–Q12)
+
+> All 5 React questions live in the **same** pre-scaffolded Vite project. You only ever edit `src/App.jsx` (and once, `src/index.css`). Same skeleton, only the inside changes.
+
+## Part R0 — One-time prep (do tonight, with internet)
+
+```bash
+npm create vite@latest react-template -- --template react
+cd react-template
+npm install
+npm run dev          # confirm it boots, Ctrl-C
+```
+
+Copy the WHOLE `react-template/` folder (including `node_modules/`) to USB.
+
+On exam PC (Ubuntu Linux — matches your Fedora, binaries work):
+```bash
+cp -r /media/usb/react-template ~/Desktop/qN
+cd ~/Desktop/qN
+npm run dev          # opens at http://localhost:5173
+```
+
+Then **replace `src/App.jsx`** with the question's code, and (once, first time) **replace `src/index.css`** with the shared shell below. Vite hot-reloads on save.
+
+> **Also clear `src/App.css`** (or delete the `import './App.css'` from `src/main.jsx`). Vite ships with styles in there that break the centering.
+
+## Part R1 — The shared shells (memorize ONCE)
+
+### React App skeleton (every q is this + a body)
+```jsx
+import { useState } from 'react';
+
+function App() {
+    // useState calls here
+
+    return (
+        <div className="card">
+            {/* unique JSX */}
+        </div>
+    );
+}
+
+export default App;
+```
+
+### Shared `src/index.css` (paste once, identical across all 5)
+```css
+body {
+    margin: 0;
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    min-width: 300px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 5px;
+}
+```
+
+## Part R2 — React patterns reused across ALL 5 questions
+
+| Need to... | Use |
+|---|---|
+| Declare state | `const [x, setX] = useState(initial)` |
+| Update state | `setX(newValue)` |
+| Bind input/select | `value={x} onChange={(e) => setX(e.target.value)}` |
+| Handle click | `onClick={() => doThing()}` |
+| Conditional render | `{cond && <h2>...</h2>}` |
+| Either/or render | `{cond ? 'A' : 'B'}` |
+| Render a list | `{arr.map((item, i) => <div key={i}>...</div>)}` |
+| Update one item in array | `const u = [...arr]; u[i].x++; setArr(u);` |
+| Today's date | `new Date().toLocaleDateString()` |
+
+---
+
+## q8 — Current Date + Capture Name
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+    const [name, setName] = useState('');
+    const date = new Date().toLocaleDateString();
+
+    return (
+        <div className="card">
+            <h1>Welcome!</h1>
+            <p>Today's date: {date}</p>
+            <input
+                type="text"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
+            {name && <h2>Hello, {name}!</h2>}
+        </div>
+    );
+}
+
+export default App;
+```
+
+**3 things to remember:**
+1. `value={name}` + `onChange={(e) => setName(e.target.value)}` — that's how every controlled input works.
+2. `new Date().toLocaleDateString()` is the entire date logic.
+3. `{name && <h2>...</h2>}` — only renders when `name` is non-empty (empty string is falsy).
+
+---
+
+## q9 — Calculator (React version)
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+    const [num1, setNum1] = useState('');
+    const [num2, setNum2] = useState('');
+    const [op, setOp] = useState('+');
+    const [result, setResult] = useState(null);
+
+    function calculate() {
+        const a = parseFloat(num1);
+        const b = parseFloat(num2);
+        if (op === '+') setResult(a + b);
+        else if (op === '-') setResult(a - b);
+        else if (op === '*') setResult(a * b);
+        else if (op === '/') setResult(a / b);
+    }
+
+    return (
+        <div className="card">
+            <h1>Calculator</h1>
+            <input type="number" placeholder="First"
+                value={num1} onChange={(e) => setNum1(e.target.value)} />
+            <select value={op} onChange={(e) => setOp(e.target.value)}>
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <input type="number" placeholder="Second"
+                value={num2} onChange={(e) => setNum2(e.target.value)} />
+            <br />
+            <button onClick={calculate}>Calculate</button>
+            {result !== null && <h2>Result: {result}</h2>}
+        </div>
+    );
+}
+
+export default App;
+```
+
+**3 things to remember:**
+1. 4 separate `useState` calls — one for each independent piece of state.
+2. `parseFloat()` to turn the input string into a number before doing math.
+3. `<select>` uses the *same* `value`/`onChange` pattern as `<input>` — one pattern to rule them all.
+
+---
+
+## q10 — Voting Application
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+    const [candidates, setCandidates] = useState([
+        { name: 'Alice', votes: 0 },
+        { name: 'Bob', votes: 0 },
+        { name: 'Charlie', votes: 0 }
+    ]);
+
+    function vote(i) {
+        const updated = [...candidates];
+        updated[i].votes++;
+        setCandidates(updated);
+    }
+
+    return (
+        <div className="card">
+            <h1>Vote for your candidate</h1>
+            {candidates.map((c, i) => (
+                <div key={i}>
+                    <h2>{c.name}: {c.votes}</h2>
+                    <button onClick={() => vote(i)}>Vote</button>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+export default App;
+```
+
+**The one trick:** updating one item in an array of state.
+```js
+const updated = [...candidates];   // shallow copy → new array reference
+updated[i].votes++;                // edit the copy
+setCandidates(updated);            // re-render
+```
+
+**Mental model:** array of `{name, votes}`. `.map` renders rows. Each Vote button passes its index `i` to `vote(i)`.
+
+---
+
+## q11 — Toggle ON/OFF
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+    const [on, setOn] = useState(false);
+
+    return (
+        <div className="card">
+            <h1>The light is {on ? 'ON' : 'OFF'}</h1>
+            <button onClick={() => setOn(!on)}>
+                Turn {on ? 'OFF' : 'ON'}
+            </button>
+        </div>
+    );
+}
+
+export default App;
+```
+
+**The whole thing:** `setOn(!on)`. Boolean state, ternary in JSX for the label.
+
+---
+
+## q12 — Counter
+
+```jsx
+import { useState } from 'react';
+
+function App() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <div className="card">
+            <h1>Counter</h1>
+            <h2>{count}</h2>
+            <button onClick={() => setCount(count - 1)}>-</button>
+            <button onClick={() => setCount(0)}>Reset</button>
+            <button onClick={() => setCount(count + 1)}>+</button>
+        </div>
+    );
+}
+
+export default App;
+```
+
+**The whole thing:** `setCount(count + 1)`, `setCount(count - 1)`, `setCount(0)`. The canonical first React component.
+
+---
+
+## React exam strategy (q8–q12)
+
+1. **Copy `react-template/` → rename to `qN/`.**
+2. **`cd qN && npm run dev`** — wait for "Local: http://localhost:5173/" line.
+3. **Replace `src/index.css`** with the shared shell (only needed the FIRST time per folder).
+4. **Replace `src/App.jsx`** with the question's code.
+5. **Save.** Vite hot-reloads — verify in the browser.
+
+> Save frequently. Vite's hot reload is instant — there's no "compile and pray" cycle.
+
+## Common React gotchas under exam pressure
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| Blank white page | Syntax error in JSX | Check terminal — Vite prints the error and line number |
+| `useState is not defined` | Forgot the import | `import { useState } from 'react';` at the top |
+| Input typing doesn't work | Missing `onChange` | Add `onChange={(e) => setX(e.target.value)}` |
+| Click does nothing | `onClick={fn()}` instead of `onClick={fn}` | Without args: drop the `()`. With args: wrap in `() => fn(arg)` |
+| `Each child should have a unique "key"` warning | Missing `key` in `.map` | Add `key={i}` (or `key={item.id}`) |
+| Centering broken | Forgot to clear `App.css` | Empty `src/App.css` or remove its import from `main.jsx` |
