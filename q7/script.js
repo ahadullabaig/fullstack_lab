@@ -1,32 +1,27 @@
-$(document).ready(function() {
-    let currentRating = 0;
+const stars = document.querySelectorAll('.star');
+const message = document.getElementById('rating-message');
 
-    $('.star').on('mouseenter', function() {
-        highlight($(this).data('value'), 'hovered');
+let rating = 0;
+
+function paint(n)
+{
+    stars.forEach((star, i) => {
+        star.classList.toggle('on', i < n);
     });
+}
 
-    $('.star').on('mouseleave', function() {
-        $('.star').removeClass('hovered');
-    });
-
-    $('.star').on('click', function() {
-        currentRating = $(this).data('value');
-        highlight(currentRating, 'selected');
-        $('#rating-message').text('You rated this ' + currentRating + ' stars!');
-    });
-
-    $('#reset-btn').on('click', function() {
-        currentRating = 0;
-        $('.star').removeClass('selected hovered');
-        $('#rating-message').text('Click a star to rate!');
-    });
-
-    function highlight(value, className) {
-        $('.star').removeClass(className);
-        $('.star').each(function() {
-            if ($(this).data('value') <= value) {
-                $(this).addClass(className);
-            }
-        });
-    }
+stars.forEach((star, i) => {
+    star.onmouseenter = () => paint(i + 1);
+    star.onmouseleave = () => paint(rating);
+    star.onclick = () => {
+        rating = i + 1;
+        paint(rating);
+        message.textContent = `You rated ${rating} stars!`;
+    };
 });
+
+document.getElementById('reset-btn').onclick = () => {
+    rating = 0;
+    paint(0);
+    message.textContent = 'Click a star to rate!';
+};
