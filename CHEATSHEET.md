@@ -142,7 +142,7 @@ ul { line-height: 1.8; }
 **Unique HTML body** (button grid uses inline `onclick` because 16 buttons):
 ```html
 <div class="calculator">
-    <input type="text" id="display" readonly>
+    <input type="text" id="display" readonly placeholder="0">
     <div class="buttons">
         <button class="btn clear" onclick="clearDisplay()">C</button>
         <button class="btn operator" onclick="appendToDisplay('/')">÷</button>
@@ -184,12 +184,12 @@ function calculate() {
 
 **Unique CSS bits:**
 ```css
-.calculator { background: #fff; padding: 20px; border-radius: 12px; width: 320px; }
-#display { width: 100%; height: 60px; font-size: 2em; text-align: right;
-           margin-bottom: 20px; padding: 10px; box-sizing: border-box;
-           border: none; background: #ecf0f1; border-radius: 5px; }
+.calculator { background: white; padding: 20px; border-radius: 12px;
+              box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+#display { width: 100%; font-size: 2em; text-align: right; margin-bottom: 20px;
+           padding: 10px; box-sizing: border-box; border: none; background: whitesmoke; }
 .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.btn { padding: 20px; font-size: 1.2em; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; background: #fff; }
+.btn { padding: 20px; font-size: 1.2em; border: 1px solid; border-radius: 5px; cursor: pointer; }
 .operator { background: #f39c12; color: white; }
 .clear    { background: #e74c3c; color: white; }
 .delete   { background: #7f8c8d; color: white; }
@@ -199,14 +199,15 @@ function calculate() {
 
 ---
 
-## q3 — Student Timetable (highlight today's column)
+## q3 — Student Timetable (static, HTML + CSS only)
+
+> No JS for this one — the table is just colored by `class` on each `<td>`.
 
 **Unique HTML body:**
 ```html
 <div class="container">
     <h1>Weekly Schedule</h1>
-    <p id="current-day"></p>
-    <table id="timetable">
+    <table>
         <thead>
             <tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr>
         </thead>
@@ -215,84 +216,51 @@ function calculate() {
                 <td class="math">Mathematics</td><td class="physics">Physics</td>
                 <td class="math">Mathematics</td><td class="cs">Computer Science</td>
                 <td class="physics">Physics</td></tr>
-            <!-- 2 more rows like this -->
+            <!-- 2 more rows of the same shape, varying subjects per slot -->
         </tbody>
     </table>
 </div>
 ```
 
-**Unique JS** (find today's column header → border every cell in that column):
-```js
-const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const now = new Date();
-const dayName = days[now.getDay()];
-
-document.getElementById('current-day').innerText = `Today is ${dayName}, ${now.toLocaleDateString()}`;
-
-const headers = document.querySelectorAll('#timetable th');
-headers.forEach((header, index) => {
-    if (header.innerText === dayName) {
-        header.style.backgroundColor = '#27ae60';
-        const rows = document.querySelectorAll('#timetable tbody tr');
-        rows.forEach(row => {
-            row.cells[index].style.border = '2px solid #27ae60';
-        });
-    }
-});
-```
-
-**Key JS APIs:** `new Date().getDay()` → 0-6 (Sun=0). `row.cells[index]` gets nth `<td>`.
-
-**Unique CSS bits:**
+**Unique CSS bits** (named colors keep it short):
 ```css
-.container { background: white; padding: 30px; border-radius: 12px; text-align: center; }
-table { border-collapse: collapse; margin: 0 auto; }
-th, td { border: 1px solid #ddd; padding: 12px 20px; text-align: center; }
-th { background: #34495e; color: white; }
-.time    { background: #f9f9f9; font-weight: bold; }
-.math    { background: #d1e7dd; }
-.physics { background: #cfe2ff; }
-.cs      { background: #f8d7da; }
-.english { background: #fff3cd; }
+.container { background: white; padding: 30px; border-radius: 12px;
+             box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
+th, td { border: 1px solid white; padding: 12px 20px; text-align: center; }
+th { background: navy; color: white; }
+.time    { background: lightgray;   font-weight: bold; }
+.math    { background: lightyellow; }
+.physics { background: lightblue; }
+.cs      { background: lightgreen; }
+.english { background: pink; }
 ```
 
 ---
 
 ## q4 — Course Registration Form
 
-**Unique HTML body** (text + email + select + radio + checkbox = covers every form element):
+**Unique HTML body** (text + email + select — minimal form):
 ```html
 <div class="form-container">
     <h2>Student Course Registration</h2>
     <form id="registrationForm">
         <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" required>
+            <input type="text" id="fullName" placeholder="Enter your full name" required>
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" required>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="example@college.com" required>
         </div>
         <div class="form-group">
             <label for="course">Select Course</label>
             <select id="course" required>
-                <option value="">-- Choose --</option>
+                <option value="">-- Choose a Course --</option>
                 <option value="cs">Computer Science</option>
                 <option value="it">Information Technology</option>
                 <option value="ai">Artificial Intelligence</option>
+                <option value="ds">Data Science</option>
             </select>
-        </div>
-        <div class="form-group">
-            <label>Semester</label>
-            <div class="radio-group">
-                <input type="radio" name="semester" value="Fall" id="fall" checked>
-                <label for="fall">Fall</label>
-                <input type="radio" name="semester" value="Spring" id="spring">
-                <label for="spring">Spring</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label><input type="checkbox" required> I agree to the terms</label>
         </div>
         <button type="submit">Register Now</button>
     </form>
@@ -311,34 +279,37 @@ form.addEventListener('submit', (event) => {
     const name = document.getElementById('fullName').value;
     const email = document.getElementById('email').value;
     const course = document.getElementById('course').value;
-    const semester = document.querySelector('input[name="semester"]:checked').value;
 
     messageDiv.innerHTML = `
         <strong>Registration Successful!</strong><br>
         Student: ${name}<br>
         Email: ${email}<br>
         Course: ${course.toUpperCase()}<br>
-        Term: ${semester}
     `;
     messageDiv.classList.remove('hidden');
 });
 ```
 
 **3 key tricks:**
-1. `event.preventDefault()` — stop page refresh
-2. Get text/email/select: `.value`
-3. Get checked radio: `querySelector('input[name="semester"]:checked').value`
+1. `event.preventDefault()` — stop page refresh on submit.
+2. Read input/select values with `.value`.
+3. `.classList.remove('hidden')` to reveal the success box (`.hidden { display: none }`).
+
+> If a question also asks for radio buttons or checkboxes:
+> - radios → `<input type="radio" name="group" value="X">`; read with `document.querySelector('input[name="group"]:checked').value`
+> - checkbox → `<input type="checkbox" required>` inside the label
 
 **Unique CSS bits:**
 ```css
-.form-container { background: white; padding: 30px; border-radius: 12px; width: 400px; }
+.form-container { background: white; padding: 30px; border-radius: 12px;
+                  box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 400px; }
+h2 { text-align: center; margin-bottom: 20px; }
 .form-group { margin-bottom: 15px; }
 label { display: block; margin-bottom: 5px; font-weight: 600; }
 input[type="text"], input[type="email"], select {
     width: 100%; padding: 10px; border: 1px solid #ccc;
     border-radius: 4px; box-sizing: border-box;
 }
-.radio-group { display: flex; gap: 15px; }
 button { width: 100%; padding: 12px; background: #007bff; color: white;
          border: none; border-radius: 4px; cursor: pointer; }
 #message { margin-top: 20px; padding: 10px; border-radius: 4px;
@@ -350,40 +321,39 @@ button { width: 100%; padding: 12px; background: #007bff; color: white;
 
 ## q5 — Text Animation (the tiny one)
 
-**Unique HTML body:**
+**Unique HTML body** (heading starts empty — JS fills it):
 ```html
-<h1 id="animatedText">Color Changing Text</h1>
+<h1 id="text"></h1>
 ```
 
-**Unique JS** (toggle a boolean every second):
+**Unique JS** (toggle a boolean on a timer):
 ```js
-const textElement = document.getElementById('animatedText');
+const text = document.getElementById('text');
 let isEnlarged = false;
 
-function toggleAnimation() {
+function toggle() {
     if (isEnlarged) {
-        textElement.style.transform = 'scale(0.75)';
-        textElement.style.color = '#6f42c1';
-        textElement.innerText = 'Shrinking...';
+        text.style.transform = 'scale(0.75)';
+        text.style.color = '#6f42c1';
+        text.innerText = 'Shrinking...';
     } else {
-        textElement.style.transform = 'scale(1.5)';
-        textElement.style.color = '#dc3545';
-        textElement.innerText = 'Enlarging...';
+        text.style.transform = 'scale(1.5)';
+        text.style.color = '#dc3545';
+        text.innerText = 'Enlarging...';
     }
     isEnlarged = !isEnlarged;
 }
 
-setInterval(toggleAnimation, 1000);
-toggleAnimation();
+setInterval(toggle, 1500);
+toggle();
 ```
 
 **Key APIs:** `setInterval(fn, ms)`, `element.style.transform`, `element.style.color`.
 
 **Unique CSS bits** (the `transition` is what makes it smooth, not JS):
 ```css
-#animatedText {
+#text {
     font-size: 3rem;
-    display: inline-block;
     transition: transform 1s ease, color 1s ease;
 }
 ```
@@ -396,14 +366,18 @@ toggleAnimation();
 ```html
 <div class="card">
     <h2>Security Check</h2>
-    <div class="input-wrapper">
-        <input type="password" id="password" placeholder="Type your password...">
-        <span id="toggleText">Show</span>
+    <p>Enter a password to test its strength.</p>
+
+    <div class="input">
+        <input type="text" id="password" placeholder="Type your password...">
     </div>
-    <div class="meter-container">
-        <div id="strengthBar"></div>
+
+    <div class="meter">
+        <div id="bar"></div>
     </div>
-    <p id="feedbackText">Strength: <span>None</span></p>
+
+    <p id="feedback">Strength: <span>None</span></p>
+
     <ul class="requirements">
         <li id="length">At least 8 characters</li>
         <li id="upper">At least one uppercase letter</li>
@@ -415,10 +389,9 @@ toggleAnimation();
 
 **Unique JS** (array of checks → loop counts score → score indexes into states):
 ```js
-const passwordInput = document.getElementById('password');
-const strengthBar = document.getElementById('strengthBar');
-const feedbackText = document.querySelector('#feedbackText span');
-const toggleText = document.getElementById('toggleText');
+const password = document.getElementById('password');
+const bar = document.getElementById('bar');
+const feedback = document.querySelector('#feedback span');
 
 const checks = [
     { id: 'length',  test: v => v.length >= 8 },
@@ -435,25 +408,21 @@ const states = [
     { width: '100%', color: '#27ae60',     text: 'Very Strong' }
 ];
 
-toggleText.addEventListener('click', () => {
-    const isPassword = passwordInput.type === 'password';
-    passwordInput.type = isPassword ? 'text' : 'password';
-    toggleText.innerText = isPassword ? 'Hide' : 'Show';
-});
-
-passwordInput.addEventListener('input', () => {
-    const val = passwordInput.value;
+password.addEventListener('input', () => {
+    const val = password.value;
     let score = 0;
+
     checks.forEach(c => {
         const valid = c.test(val);
         document.getElementById(c.id).classList.toggle('valid', valid);
         if (valid) score++;
     });
+
     const s = states[score];
-    strengthBar.style.width = s.width;
-    strengthBar.style.backgroundColor = s.color;
-    feedbackText.innerText = s.text;
-    feedbackText.style.color = s.color;
+    bar.style.width = s.width;
+    bar.style.backgroundColor = s.color;
+    feedback.innerText = s.text;
+    feedback.style.color = s.color;
 });
 ```
 
@@ -465,96 +434,87 @@ passwordInput.addEventListener('input', () => {
 
 **Unique CSS bits:**
 ```css
-.card { background: white; padding: 30px; border-radius: 12px; width: 350px; }
-.input-wrapper { position: relative; margin-bottom: 15px; }
-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-#toggleText { position: absolute; right: 10px; top: 50%;
-              transform: translateY(-50%); cursor: pointer; color: #007bff; font-size: 0.8rem; }
-.meter-container { height: 8px; background: #eee; border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
-#strengthBar { height: 100%; width: 0%; transition: width 0.4s, background-color 0.4s; }
+.card { background: white; padding: 30px; border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 350px; }
+.input { position: relative; margin-bottom: 15px; }
+input { width: 100%; padding: 12px; border: 1px solid #ccc;
+        border-radius: 5px; box-sizing: border-box; }
+.meter { height: 8px; background: #eee; border-radius: 4px;
+         overflow: hidden; margin-bottom: 10px; }
+#bar { height: 100%; width: 0%; transition: width 0.4s, background-color 0.4s; }
 .requirements { list-style: none; padding: 0; font-size: 0.85rem; color: #888; }
 .requirements li.valid { color: #27ae60; }
-.requirements li.valid::before { content: "✓ "; }
 ```
 
 ---
 
-## q7 — jQuery Star Rating
-
-**Don't forget the jQuery CDN in `<head>`:**
-```html
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-```
+## q7 — Star Rating (vanilla JS, one class)
 
 **Unique HTML body:**
 ```html
 <div class="rating-container">
     <h2>Rate your experience</h2>
     <div class="stars">
-        <span class="star" data-value="1">&#9733;</span>
-        <span class="star" data-value="2">&#9733;</span>
-        <span class="star" data-value="3">&#9733;</span>
-        <span class="star" data-value="4">&#9733;</span>
-        <span class="star" data-value="5">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
     </div>
     <p id="rating-message">Click a star to rate!</p>
     <button id="reset-btn">Reset</button>
 </div>
 ```
 
-`&#9733;` is the ★ entity. `data-value` stores the rating number on each star.
+`&#9733;` is the ★ entity. The rating is derived from the star's **index** in the NodeList — no `data-value` needed.
 
-**Unique JS** (jQuery, not vanilla):
+**Unique JS** (one `.on` class, one `paint(n)` function):
 ```js
-$(document).ready(function() {
-    let currentRating = 0;
+const stars = document.querySelectorAll('.star');
+const message = document.getElementById('rating-message');
+let rating = 0;
 
-    $('.star').on('mouseenter', function() {
-        highlight($(this).data('value'), 'hovered');
-    });
+function paint(n) {
+    stars.forEach((star, i) => star.classList.toggle('on', i < n));
+}
 
-    $('.star').on('mouseleave', function() {
-        $('.star').removeClass('hovered');
-    });
-
-    $('.star').on('click', function() {
-        currentRating = $(this).data('value');
-        highlight(currentRating, 'selected');
-        $('#rating-message').text('You rated this ' + currentRating + ' stars!');
-    });
-
-    $('#reset-btn').on('click', function() {
-        currentRating = 0;
-        $('.star').removeClass('selected hovered');
-        $('#rating-message').text('Click a star to rate!');
-    });
-
-    function highlight(value, className) {
-        $('.star').removeClass(className);
-        $('.star').each(function() {
-            if ($(this).data('value') <= value) {
-                $(this).addClass(className);
-            }
-        });
-    }
+stars.forEach((star, i) => {
+    star.onmouseenter = () => paint(i + 1);
+    star.onmouseleave = () => paint(rating);
+    star.onclick = () => {
+        rating = i + 1;
+        paint(rating);
+        message.textContent = `You rated ${rating} stars!`;
+    };
 });
+
+document.getElementById('reset-btn').onclick = () => {
+    rating = 0;
+    paint(0);
+    message.textContent = 'Click a star to rate!';
+};
 ```
 
-**jQuery cheats:**
-- `$(selector)` instead of `document.querySelector`
-- `.on('event', fn)` instead of `addEventListener`
-- `$(this).data('value')` reads `data-value` attribute
-- `.addClass / .removeClass / .text(...)` are the workhorses
+**Mental model:**
+- `paint(n)` makes the first `n` stars yellow (`.on` class) and clears the rest. `classList.toggle('on', cond)` adds when `cond` is true, removes when false.
+- Hover in → `paint(i+1)` previews the rating.
+- Hover out → `paint(rating)` snaps back to the saved selection.
+- Click → save `rating`, repaint.
+- Reset → `rating = 0`, `paint(0)`.
 
-**Unique CSS bits:**
+**Unique CSS bits** (one yellow rule for the active class):
 ```css
-.rating-container { background: white; padding: 40px; border-radius: 12px; text-align: center; }
+.rating-container { background: white; padding: 40px; border-radius: 12px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.1); text-align: center; }
 .stars { font-size: 3rem; cursor: pointer; margin-bottom: 15px; }
-.star { color: #ccc; transition: color 0.2s; }
-.star.hovered, .star.selected { color: #f1c40f; }
-#rating-message { color: #555; font-weight: bold; margin-bottom: 20px; }
-#reset-btn { padding: 8px 15px; border: 1px solid #ddd; background: white; cursor: pointer; border-radius: 5px; }
+.star { color: #ccc; }
+.star.on { color: yellow; }
+#rating-message { color: gray; font-weight: bold; margin-bottom: 20px; }
+#reset-btn { padding: 8px 15px; border: 1px solid #ddd; background: white;
+             cursor: pointer; border-radius: 5px; }
 ```
+
+> If the question explicitly demands jQuery: include `<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>` in `<head>`, wrap code in `$(document).ready(...)`, and swap `addEventListener` → `.on('event', fn)`, `classList` → `.addClass/.removeClass`, `.textContent` → `.text(...)`.
 
 ---
 
@@ -577,8 +537,10 @@ $(document).ready(function() {
 | Read text | `el.innerText` |
 | Set HTML | `el.innerHTML = ...` |
 | Add/remove class | `el.classList.add/remove/toggle('x')` |
+| Toggle class on condition | `el.classList.toggle('x', cond)` |
 | Inline style | `el.style.color = ...` |
 | Listen for event | `el.addEventListener('event', fn)` |
+| Shorthand listener | `el.onclick = () => {...}` |
 | Stop form refresh | `event.preventDefault()` |
 | Get checked radio | `document.querySelector('input[name="x"]:checked').value` |
 | Repeat every N ms | `setInterval(fn, ms)` |
@@ -592,6 +554,6 @@ $(document).ready(function() {
 | `type="email"` | input | email validation |
 | `name="x"` | radio | groups radios together |
 | `value="..."` | option/radio | what gets submitted |
-| `data-value="..."` | any element | read via `.dataset.value` or jQuery `.data('value')` |
+| `data-value="..."` | any element | read via `.dataset.value` (vanilla) or `.data('value')` (jQuery) |
 | `readonly` | input | display-only |
 | `placeholder` | input | grey hint text |
