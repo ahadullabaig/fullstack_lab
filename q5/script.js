@@ -1,18 +1,18 @@
-const textElement = document.getElementById('animatedText');
+const text = document.getElementById('text');
 let isEnlarged = false;
 
-function toggleAnimation() {
+function toggle() {
     if (isEnlarged) {
-        textElement.style.transform = 'scale(0.75)';
-        textElement.style.color = '#6f42c1';
-        textElement.innerText = 'Shrinking...';
+        text.style.transform = 'scale(0.75)';
+        text.style.color = '#6f42c1';
+        text.innerText = 'Shrinking...';
     } else {
-        textElement.style.transform = 'scale(1.5)';
-        textElement.style.color = '#dc3545';
-        textElement.innerText = 'Enlarging...';
+        text.style.transform = 'scale(1.5)';
+        text.style.color = '#dc3545';
+        text.innerText = 'Enlarging...';
     }
     isEnlarged = !isEnlarged;
 }
 
-setInterval(toggleAnimation, 1000);
-toggleAnimation();
+setInterval(toggle, 1500);
+toggle();

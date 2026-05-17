@@ -8,8 +8,7 @@ body {
     margin: 0;
 }
 
-#animatedText {
+#text {
     font-size: 3rem;
-    display: inline-block;
     transition: transform 1s ease, color 1s ease;
 }
